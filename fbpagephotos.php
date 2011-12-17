@@ -13,6 +13,20 @@ define('FB_API_URI', 'https://graph.facebook.com');
 define('FBPP_ALBUM_TBL', 'fbpp_album');
 define('FBPP_PHOTO_TBL', 'fbpp_photo');
 
+/**
+ * Main function to show the Facebook Page Photos
+ */
+function fbpp_show($atts){
+	if(isset($_GET['fbpp_album']) && ($db_photos = fbpp_get_album_photos($_GET['fbpp_album'])) != NULL){
+		// display album photos
+	}else{
+		// display alubms
+	}
+}
+
+add_shortcode('fbpp', 'fbpp_show');
+
+
 if ( is_admin() ){
 	require_once dirname( __FILE__ ) . '/admin.php';;
 }
