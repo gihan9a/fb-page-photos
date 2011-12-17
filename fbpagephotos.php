@@ -12,3 +12,7 @@ License: GPL
 define('FB_API_URI', 'https://graph.facebook.com');
 define('FBPP_ALBUM_TBL', 'fbpp_album');
 define('FBPP_PHOTO_TBL', 'fbpp_photo');
+
+if ( is_admin() ){
+	require_once dirname( __FILE__ ) . '/admin.php';;
+}
