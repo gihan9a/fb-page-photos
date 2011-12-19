@@ -14,6 +14,7 @@ define('FB_API_URI', 'https://graph.facebook.com');
 define('FBPP_ALBUM_TBL', 'fbpp_album');
 define('FBPP_PHOTO_TBL', 'fbpp_photo');
 define('FBPP_WP_OPTION', 'fbpp_page_id');
+define('FBPP_COLS', '7');
 
 require_once dirname(__FILE__) . '/functions.php';
 
@@ -51,6 +52,7 @@ register_activation_hook(__FILE__, 'fbpp_plugin_install');
  * Main function to show the Facebook Page Photos
  */
 function fbpp_show($atts) {
+    $cols = get_option('fbpp_cols', FBPP_COLS);
     if (isset($_GET['fbpp_album']) && ($db_photos = fbpp_get_album_photos($_GET['fbpp_album'])) != NULL) {
         $album_id = $_GET['fbpp_album'];
         // get album photos

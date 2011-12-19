@@ -46,3 +46,9 @@ a.fbpp-backto-albums{
     margin-bottom: 10px;
     display: block;
 }
+
+.fbpp-divider{
+    clear: both;
+    visibility: hidden;
+    float: none;
+}

@@ -11,7 +11,7 @@ function fbpp_plugin_page() {
     if (isset($_POST['fbpp_action']) && $_POST['fbpp_action'] == 'fetch_albums') {
         // page id
         $page_id = $_POST['page_id'];
-
+        $cols = get_option('fbpp_cols', FBPP_COLS);
         $albums_fetched_data = fbpp_fetch_albums($page_id);
 
         //list them
@@ -37,11 +37,13 @@ function fbpp_plugin_page() {
         }
     } elseif (isset($_POST['fbpp_action']) && $_POST['fbpp_action'] == 'save') {
         $page_id = $_POST['page_id'];
+        $cols = $_POST['cols'];
         
         $update = FALSE;
         if ($_SESSION['fbpp_sess_albums']) {
-            // save Facebook Page ID
+            // save Facebook Page ID and cols
             add_option('fbpp_page_id', $page_id);
+            add_option('fbpp_cols', $cols);
             
             $fb_albums = $_SESSION['fbpp_sess_albums'];
             // clear session
@@ -51,6 +53,8 @@ function fbpp_plugin_page() {
         } else {
             // save Facebook Page ID
             update_option('fbpp_page_id', $page_id);
+            // save cols
+            update_option('fbpp_cols', $cols);
             
             $update = TRUE;
             $fb_albums = new stdClass();

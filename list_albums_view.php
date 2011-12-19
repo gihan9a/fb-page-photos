@@ -9,6 +9,11 @@ if($_POST['fbpp_action'] == 'fetch_albums'){
 <form action="" method="post">
     <input type="hidden" name="fbpp_action" value="save" />
     <input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
+    <div class="form-field form-required ">
+        <label for="cols">Number of columns per row: </label>
+        <input type="text" id="page-id" name="cols" size="30" value="<?php echo $cols; ?>" aria-required="true" />
+        <p>Number of columns should appear on each row. This is a common value for album listing and photos listing</p>
+    </div>
     <p class="submit">
         <input type="submit" value="Update" class="button" />
     </p>
