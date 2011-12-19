@@ -1,4 +1,10 @@
-<form action="fbpp_action=save_fetched" method="get">
+<?php 
+if($_POST['fbpp_action'] == 'fetch_albums'){
+    echo $albums_count.' albums fetched.';
+}
+?>
+<form action="" method="post">
+    <input type="hidden" name="fbpp_action" value="save" />
     <input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
     <p class="submit">
         <input type="submit" value="Update" class="button" />
@@ -31,7 +37,7 @@
                     <td><img src="<?php echo $album->fbpp_coverphoto->picture; ?>" alt="<?php echo $album->name; ?>" /></td>
                     <td><?php echo $album->count; ?></td>
                     <td>
-                        <label><input type="checkbox" name="albums[<?php echo $album->db_id ?>]" <?php echo ($album->show)?'checked="checked"':''; ?> /> Show</label>
+                        <label><input type="checkbox" name="albums[<?php echo $album->id ?>]" <?php echo ($album->show)?'checked="checked"':''; ?> /> Show</label>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -95,12 +95,74 @@ function fbpp_get_album_photos($album_id) {
  * @param type $id
  * @return type 
  */
-function fbpp_get_album($id, $data = TRUE){
+function fbpp_get_album($id, $data = TRUE) {
+    global $wpdb;
+    $album = $wpdb->get_row("SELECT * FROM " . FBPP_ALBUM_TBL . " WHERE id=$id");
+    if ($data && $album) {
+        return json_decode($album->data);
+    } else {
+        return $album;
+    }
+}
+
+/**
+ *
+ * @global type $wpdb
+ * @param type $album
+ * @return type 
+ */
+function fbpp_save_album($album, $show=TRUE) {
+    // first check album exists
+    global $wpdb;
+    $row = $wpdb->get_row("SELECT * FROM ".FBPP_ALBUM_TBL." WHERE fbid={$album->id}");
+    if ($row) {
+        // update info
+        $data = array(
+            'data' => json_encode($album),
+            'coverphoto_fbid' => $album->cover_photo,
+            'show' => $show,
+        );
+        $where = array(
+            'id' => $row->id,
+        );
+        
+        $wpdb->update(FBPP_ALBUM_TBL, $data, $where);
+
+        return $row->id;
+    } else {
+        $album_data = array(
+            'fbid' => $album->id,
+            'data' => json_encode($album),
+            'coverphoto_fbid' => $album->cover_photo,
+            'show' => $show,
+        );
+        $wpdb->insert(FBPP_ALBUM_TBL, $album_data);
+        return $wpdb->insert_id;
+    }
+}
+
+/**
+ *
+ * @global type $wpdb 
+ */
+function fbpp_drop_current_albums(){
 	global $wpdb;
-	$album = $wpdb->get_row("SELECT * FROM ".FBPP_ALBUM_TBL." WHERE id=$id");
-        if($data && $album){
-            return json_decode($album->data);
-        }else{
-            return $album;
-        }
+	$wpdb->query("TRUNCATE ".FBPP_ALBUM_TBL);
+	$wpdb->query("TRUNCATE ".FBPP_PHOTO_TBL);
+}
+
+/**
+ *
+ * @global type $wpdb
+ * @param type $photo
+ * @param type $album_id 
+ */
+function fbpp_insert_photo($photo, $album_id){
+	global $wpdb;
+	$photo_data = array(
+		'fbid'=>$photo->id,
+		'data'=>json_encode($photo),
+		'album_id'=>$album_id,
+	);
+	$wpdb->insert(FBPP_PHOTO_TBL, $photo_data);
 }
