@@ -4,7 +4,7 @@
 <p><?php echo $album->location; ?></p>
 <?php $i=1; foreach($photos as $photo): ?>
 <div class="fbpp-photo-thumb">
-    <a href="<?php echo $photo->source; ?>" rel="prettyPhoto"><img src="<?php echo $photo->picture; ?>" alt="<?php echo $photo->name ?>" /></a>
+    <a href="<?php echo $photo->source; ?>" rel="prettyPhoto[<?php echo str_replace(' ', '_', $album->name) ?>]"><img src="<?php echo $photo->picture; ?>" alt="<?php echo $photo->name ?>" /></a>
 </div>
 <?php if($i%$cols == 0): ?>
 <hr class="fbpp-divider" />
