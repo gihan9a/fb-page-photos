@@ -56,7 +56,12 @@ function fbpp_get_all_albums(){
 /**
  * Get photos of 
  */
-function fbpp_get_photo($fbid){
+function fbpp_get_photo($fbid, $data=TRUE){
 	global $wpdb;
-	return $wpdb->get_row("SELECT * FROM ".FBPP_PHOTO_TBL." WHERE fbid='$fbid'");
+	$row = $wpdb->get_row("SELECT * FROM ".FBPP_PHOTO_TBL." WHERE fbid='$fbid'");
+        if($row){
+            return json_decode($row->data);
+        }else{
+            return null;
+        }
 }
