@@ -36,17 +36,22 @@ function fbpp_plugin_page() {
             // TODO error
         }
     } elseif (isset($_POST['fbpp_action']) && $_POST['fbpp_action'] == 'save') {
-        // save Facebook Page ID
-        add_option('fbpp_page_id', $page_id);
-
+        $page_id = $_POST['page_id'];
+        
         $update = FALSE;
         if ($_SESSION['fbpp_sess_albums']) {
+            // save Facebook Page ID
+            add_option('fbpp_page_id', $page_id);
+            
             $fb_albums = $_SESSION['fbpp_sess_albums'];
             // clear session
             unset($_SESSION['fbpp_sess_albums']);
             // drop currents
             fbpp_drop_current_albums();
         } else {
+            // save Facebook Page ID
+            update_option('fbpp_page_id', $page_id);
+            
             $update = TRUE;
             $fb_albums = new stdClass();
             $db_albums = fbpp_get_all_albums();

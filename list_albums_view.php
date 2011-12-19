@@ -3,6 +3,9 @@ if($_POST['fbpp_action'] == 'fetch_albums'){
     echo $albums_count.' albums fetched.';
 }
 ?>
+<p>
+	Add <b>[fbpp]</b> short code (with brackets) on a post or page, where you need to display the albums.
+</p>
 <form action="" method="post">
     <input type="hidden" name="fbpp_action" value="save" />
     <input type="hidden" name="page_id" value="<?php echo $page_id; ?>" />
