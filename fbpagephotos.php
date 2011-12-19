@@ -46,6 +46,9 @@ function fbpp_show($atts) {
         if($db_albums){
             $albums = array();
             foreach ($db_albums as $album) {
+                // skip hidden albums
+                if(!$album->show)
+                    continue;
                 $al = json_decode($album->data);
                 $al->db_id = $album->id;
                 $al->show = $album->show;
